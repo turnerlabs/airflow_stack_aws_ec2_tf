@@ -8,7 +8,7 @@ This is the terraform code to create the following airflow architecture.
 
 - directory contains the terraform code to create an s3 bucket to store the terraform state for the terraform code in the other directory.
 
-**tf_new_net_rds_ec_ec2_110**
+**tf_new_net_rds_ec_ec2**
 
 - directory contains the terraform code to create the complete AWS airflow stack.
 
