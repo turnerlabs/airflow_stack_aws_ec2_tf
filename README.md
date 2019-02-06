@@ -11,3 +11,5 @@ This is the terraform code to create the following airflow architecture.
 **tf_new_net_rds_ec_ec2_110**
 
 - directory contains the terraform code to create the complete AWS airflow stack.
+
+Please refer to https://github.com/turnerlabs/airflow_stack_aws_ec2_ami for creating the AMI's that run in this stack
