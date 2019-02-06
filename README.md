@@ -12,4 +12,4 @@ This is the terraform code to create the following airflow architecture.
 
 - directory contains the terraform code to create the complete AWS airflow stack.
 
-Please refer to https://github.com/turnerlabs/airflow_stack_aws_ec2_ami for creating the AMI's that run in this stack
+**Please refer to https://github.com/turnerlabs/airflow_stack_aws_ec2_ami for creating the AMI's that run in this stack.**
