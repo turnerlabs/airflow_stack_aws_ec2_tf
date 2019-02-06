@@ -1,4 +1,8 @@
-# What is in the terraform directory
+# What is this?
+
+This is the terraform code to create the following airflow architecture.
+
+![AWS](images/airflow.jpg)
 
 **tf_s3_state** 
 
