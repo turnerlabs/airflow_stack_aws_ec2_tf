@@ -200,11 +200,3 @@ variable "secret_recovery_window_in_days" {
 variable "notification_email" {
   description="This email will receive sns notification from any resources that alarm.  It is required"
 }
-
-variable "airflow_webserver_image" {
-  description="Docker webserver image"  
-}
-
-# variable "airflow_scheduler_image" {
-#   description="Docker webserver image"  
-# }
