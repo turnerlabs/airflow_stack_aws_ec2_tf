@@ -1,5 +1,5 @@
 resource "aws_instance" "instance_bastion" {
-  ami                         = "ami-0ac019f4fcb7cb7e6"
+  ami                         = "${var.airflow_bastion_ami}"
   instance_type               = "t2.micro"
   key_name                    = "${var.airflow_keypair_name}"
   vpc_security_group_ids      = ["${aws_security_group.bastion_instance.id}"]

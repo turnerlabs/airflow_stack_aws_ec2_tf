@@ -124,3 +124,10 @@ resource "aws_iam_instance_profile" "airflow_s3_instance_profile" {
   name = "${var.prefix}_instance_profile"
   role = "${aws_iam_role.airflow_instance.name}"
 }
+
+# SSM Policy for cloudwatch logs
+
+resource "aws_iam_role_policy_attachment" "airflow_ssm_managed_policy_attachment" {
+  role = "${aws_iam_role.airflow_instance.name}"
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM"
+}
