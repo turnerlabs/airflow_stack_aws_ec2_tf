@@ -21,7 +21,7 @@ resource "aws_security_group" "airflow_lb" {
     cidr_blocks     = ["0.0.0.0/0"]
   }
 
-  tags {
+  tags = {
     Name            = "${var.prefix}_lb"
     application     = "${var.tag_application}"
     contact-email   = "${var.tag_contact_email}"
@@ -58,7 +58,7 @@ resource "aws_security_group" "airflow_instance" {
     cidr_blocks     = ["0.0.0.0/0"]
   }
 
-  tags {
+  tags = {
     Name            = "${var.prefix}_instance"
     application     = "${var.tag_application}"
     contact-email   = "${var.tag_contact_email}"
@@ -90,7 +90,7 @@ resource "aws_security_group" "airflow_rds" {
     cidr_blocks     = ["0.0.0.0/0"]
   }
 
-  tags {
+  tags = {
     Name            = "${var.prefix}_rds"
     application     = "${var.tag_application}"
     contact-email   = "${var.tag_contact_email}"
@@ -122,7 +122,7 @@ resource "aws_security_group" "airflow_ec" {
     cidr_blocks     = ["0.0.0.0/0"]
   }
 
-  tags {
+  tags = {
     Name            = "${var.prefix}_ec"
     application     = "${var.tag_application}"
     contact-email   = "${var.tag_contact_email}"
@@ -153,7 +153,7 @@ resource "aws_security_group" "bastion_instance" {
     cidr_blocks     = ["0.0.0.0/0"]
   }
 
-  tags {
+  tags = {
     Name            = "${var.prefix}_bastion"
     application     = "${var.tag_application}"
     contact-email   = "${var.tag_contact_email}"

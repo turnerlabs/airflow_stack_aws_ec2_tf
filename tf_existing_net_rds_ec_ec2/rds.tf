@@ -3,7 +3,7 @@
 resource "aws_db_subnet_group" "airflow_rds_subnet_grp" {
   subnet_ids = ["${var.private_subnet1_id}", "${var.private_subnet2_id}"]
 
-  tags {
+  tags = {
     Name            = "${var.prefix}_rds"
     application     = "${var.tag_application}"
     contact-email   = "${var.tag_contact_email}"
@@ -38,7 +38,7 @@ resource "aws_db_instance" "airflow_rds" {
   username                              = "${var.db_master_username}"
   vpc_security_group_ids                = ["${aws_security_group.airflow_rds.id}"]
 
-  tags {
+  tags = {
     Name            = "${var.prefix}-${var.db_identifier}"
     application     = "${var.tag_application}"
     contact-email   = "${var.tag_contact_email}"

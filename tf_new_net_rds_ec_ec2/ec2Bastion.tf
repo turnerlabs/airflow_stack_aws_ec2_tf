@@ -5,7 +5,7 @@ resource "aws_instance" "instance_bastion" {
   vpc_security_group_ids      = ["${aws_security_group.bastion_instance.id}"]
   subnet_id                   = "${aws_subnet.airflow_subnet_public_1c.id}"
 
-  tags {
+  tags = {
     Name            = "${var.prefix}_airflow_bastion"
     application     = "${var.tag_application}"
     contact-email   = "${var.tag_contact_email}"

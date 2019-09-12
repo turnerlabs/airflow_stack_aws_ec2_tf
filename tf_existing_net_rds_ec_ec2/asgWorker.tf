@@ -2,7 +2,7 @@
 
 data "template_file" "airflow-worker-user-data" {
   template = "${file("airflow_worker_install.tpl")}"
-  vars {
+  vars = {
     s3_airflow_bucket_name  = "${aws_s3_bucket.s3_airflow_bucket.id}"
     role_name               = "${aws_iam_role.airflow_instance.name}"
     db_region               = "${var.region}"
@@ -99,7 +99,7 @@ resource "aws_cloudwatch_metric_alarm" "airflow_worker_cw_add_alarm" {
   statistic           = "Average"
   threshold           = "60"
 
-  dimensions {
+  dimensions = {
     AutoScalingGroupName = "${aws_autoscaling_group.asg_worker_airflow.name}"
   }
 
@@ -129,7 +129,7 @@ resource "aws_cloudwatch_metric_alarm" "airflow_worker_cw_remove_alarm" {
   statistic           = "Average"
   threshold           = "60"
 
-  dimensions {
+  dimensions = {
     AutoScalingGroupName = "${aws_autoscaling_group.asg_worker_airflow.name}"
   }
 

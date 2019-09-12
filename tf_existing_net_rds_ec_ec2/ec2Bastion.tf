@@ -6,7 +6,7 @@ resource "aws_instance" "instance_bastion" {
   subnet_id                   = "${var.public_subnet2_id}"
   associate_public_ip_address = true
 
-  tags {
+  tags = {
     Name            = "${var.prefix}_airflow_bastion"
     application     = "${var.tag_application}"
     contact-email   = "${var.tag_contact_email}"

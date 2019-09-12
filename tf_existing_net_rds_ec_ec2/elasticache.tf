@@ -16,7 +16,7 @@ resource "aws_elasticache_cluster" "airflow_elasticache" {
   security_group_ids        = ["${aws_security_group.airflow_ec.id}"]
   subnet_group_name         = "${aws_elasticache_subnet_group.airflow_ec_subnet_grp.id}"
 
-  tags {
+  tags = {
     Name            = "${var.prefix}_cluster"
     application     = "${var.tag_application}"
     contact-email   = "${var.tag_contact_email}"

@@ -13,7 +13,7 @@ resource "aws_s3_bucket" "bucket" {
     enabled = "${var.versioning}"
   }
 
-  tags {
+  tags = {
     application     = "${var.tag_application}"
     contact-email   = "${var.tag_contact_email}"
     customer        = "${var.tag_customer}"

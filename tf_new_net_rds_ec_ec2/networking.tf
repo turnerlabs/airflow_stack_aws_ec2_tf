@@ -7,7 +7,7 @@ resource "aws_vpc" "airflow_vpc" {
   enable_dns_hostnames  = true
   enable_classiclink    = false
 
-  tags {
+  tags = {
     Name            = "${var.prefix}_vpc"
     application     = "${var.tag_application}"
     contact-email   = "${var.tag_contact_email}"
@@ -27,7 +27,7 @@ resource "aws_subnet" "airflow_subnet_private_1c" {
   map_public_ip_on_launch         = false
   assign_ipv6_address_on_creation = false
 
-  tags {
+  tags = {
     Name            = "${var.prefix}_subnet_private_1c"
     application     = "${var.tag_application}"
     contact-email   = "${var.tag_contact_email}"
@@ -45,7 +45,7 @@ resource "aws_subnet" "airflow_subnet_private_1d" {
   map_public_ip_on_launch         = false
   assign_ipv6_address_on_creation = false
 
-  tags {
+  tags = {
     Name            = "${var.prefix}_subnet_private_1d"
     application     = "${var.tag_application}"
     contact-email   = "${var.tag_contact_email}"
@@ -65,7 +65,7 @@ resource "aws_subnet" "airflow_subnet_public_1c" {
   map_public_ip_on_launch         = true
   assign_ipv6_address_on_creation = false
 
-tags {
+tags = {
     Name            = "${var.prefix}_subnet_public_1c"
     application     = "${var.tag_application}"
     contact-email   = "${var.tag_contact_email}"
@@ -83,7 +83,7 @@ resource "aws_subnet" "airflow_subnet_public_1d" {
   map_public_ip_on_launch         = true
   assign_ipv6_address_on_creation = false
 
-  tags {
+  tags = {
     Name            = "${var.prefix}_subnet_public_1d"
     application     = "${var.tag_application}"
     contact-email   = "${var.tag_contact_email}"
@@ -99,7 +99,7 @@ resource "aws_internet_gateway" "airflow_igw" {
   depends_on  = ["aws_vpc.airflow_vpc"]
   vpc_id      = "${aws_vpc.airflow_vpc.id}"
 
-  tags {
+  tags = {
     Name            = "${var.prefix}_igw"
     application     = "${var.tag_application}"
     contact-email   = "${var.tag_contact_email}"
@@ -121,7 +121,7 @@ resource "aws_nat_gateway" "airflow_natgw" {
   allocation_id = "${aws_eip.airflow_nat_eip.id}"
   subnet_id     = "${aws_subnet.airflow_subnet_public_1c.id}"
 
-  tags {
+  tags = {
       Name            = "${var.prefix}_natgw"
       application     = "${var.tag_application}"
       contact-email   = "${var.tag_contact_email}"
@@ -137,7 +137,7 @@ resource "aws_route_table" "airflow_rt_main" {
   depends_on  = ["aws_vpc.airflow_vpc"]
   vpc_id      = "${aws_vpc.airflow_vpc.id}"
 
-  tags {
+  tags = {
     Name            = "${var.prefix}_rt_main"
     application     = "${var.tag_application}"
     contact-email   = "${var.tag_contact_email}"
@@ -172,7 +172,7 @@ resource "aws_route_table" "airflow_rt_custom" {
   depends_on  = ["aws_vpc.airflow_vpc"]
   vpc_id      = "${aws_vpc.airflow_vpc.id}"
 
-  tags {
+  tags = {
     Name            = "${var.prefix}_rt_custom"
     application     = "${var.tag_application}"
     contact-email   = "${var.tag_contact_email}"

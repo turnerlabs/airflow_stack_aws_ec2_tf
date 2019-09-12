@@ -12,7 +12,7 @@ resource "aws_lb_target_group" "airflow_lb_tg" {
     path      = "/login/"
   }
 
-  tags {
+  tags = {
     Name            = "${var.prefix}_lb_tg"
     application     = "${var.tag_application}"
     contact-email   = "${var.tag_contact_email}"
@@ -37,7 +37,7 @@ resource "aws_lb" "airflow_lb" {
     enabled = true
   }
 
-  tags {
+  tags = {
     Name            = "${var.prefix}_alb"
     application     = "${var.tag_application}"
     contact-email   = "${var.tag_contact_email}"

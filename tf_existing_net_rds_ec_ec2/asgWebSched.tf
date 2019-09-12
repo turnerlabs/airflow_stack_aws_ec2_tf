@@ -2,7 +2,7 @@
 # Using an lc / asg to keep webserver and scheduler up and running but only 1 instance should ever be running.
 data "template_file" "airflow-websched-user-data" {
   template = "${file("airflow_websched_install.tpl")}"
-  vars {
+  vars = {
     ec_url = "${aws_elasticache_cluster.airflow_elasticache.cache_nodes.0.address}"
     rds_url = "${aws_db_instance.airflow_rds.address}"
     db_region = "${var.region}"

@@ -3,7 +3,7 @@ terraform {
   required_version = ">=0.11.8"
   
   backend "s3" {
-    bucket = "" # the terraform state bucket has to be hand entered unfortunately
+    bucket = "tf-state-adds-prod-airflow" # the terraform state bucket has to be hand entered unfortunately
     key    = "tf_existing_net_rds_ec_ec2/terraform.tfstate"
     region = "us-east-1"
   }
@@ -11,7 +11,7 @@ terraform {
 
 # this is for an aws specific provider(not gcp or azure)
 provider "aws" {
-  version = "~> 1.43"
+  version = "~> 2.7"
   region  = "${var.region}"
   profile = "${var.profile}"
 }
