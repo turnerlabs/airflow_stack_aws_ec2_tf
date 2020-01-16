@@ -8,6 +8,7 @@ variable "profile" {
   default     = "default"
 }
 
+variable "tag_name" {}
 variable "tag_application" {}
 variable "tag_contact_email" {}
 variable "tag_customer" {}
