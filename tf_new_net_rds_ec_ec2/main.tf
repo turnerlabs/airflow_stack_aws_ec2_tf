@@ -1,9 +1,9 @@
 # this section stores the terraform state for the s3 bucket in the terraform state bucket we created in step 1.
 terraform {
-  required_version = ">=0.11.8"
+  required_version = ">=0.12.18"
   
   backend "s3" {
-    bucket = "" # the terraform state bucket has to be hand entered unfortunately
+    bucket = "tf-state" # the terraform state bucket has to be hand entered unfortunately
     key    = "tf_new_net_rds_ec_ec2/terraform.tfstate"
     region = "us-east-1"
   }
@@ -11,11 +11,11 @@ terraform {
 
 # this is for an aws specific provider(not gcp or azure)
 provider "aws" {
-  version = "~> 1.43"
+  version = "~> 2.42.0"
   region  = "${var.region}"
   profile = "${var.profile}"
 }
 
 provider "template" {
-  version = "< 2.0.0"
+  version = "~> 2.1"
 }
