@@ -37,6 +37,7 @@ resource "aws_db_instance" "airflow_rds" {
   storage_encrypted                     = true
   username                              = "${var.db_master_username}"
   vpc_security_group_ids                = ["${aws_security_group.airflow_rds.id}"]
+  ca_cert_identifier                    = "rds-ca-2019"
 
   tags = {
     Name            = "${var.prefix}-${var.db_identifier}"
