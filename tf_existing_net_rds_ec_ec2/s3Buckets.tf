@@ -23,11 +23,11 @@ resource "aws_s3_bucket" "s3_airflow_log_bucket" {
   }
 
   tags = {
-    application     = "${var.tag_application}"
-    contact-email   = "${var.tag_contact_email}"
-    customer        = "${var.tag_customer}"
-    team            = "${var.tag_team}"
-    environment     = "${var.tag_environment}"
+    application     = var.tag_application
+    contact-email   = var.tag_contact_email
+    customer        = var.tag_customer
+    team            = var.tag_team
+    environment     = var.tag_environment
   }
 }
 
@@ -57,11 +57,11 @@ resource "aws_s3_bucket" "s3_airflow_bucket" {
   }
 
   tags = {
-    application     = "${var.tag_application}"
-    contact-email   = "${var.tag_contact_email}"
-    customer        = "${var.tag_customer}"
-    team            = "${var.tag_team}"
-    environment     = "${var.tag_environment}"
+    application     = var.tag_application
+    contact-email   = var.tag_contact_email
+    customer        = var.tag_customer
+    team            = var.tag_team
+    environment     = var.tag_environment
   }
 }
 
@@ -70,11 +70,11 @@ resource "aws_s3_bucket" "s3_airflow_access_log_bucket" {
   bucket        = "${var.prefix}-${var.s3_airflow_access_log_bucket_name}"
   force_destroy = "true"
   tags = {
-    application     = "${var.tag_application}"
-    contact-email   = "${var.tag_contact_email}"
-    customer        = "${var.tag_customer}"
-    team            = "${var.tag_team}"
-    environment     = "${var.tag_environment}"
+    application     = var.tag_application
+    contact-email   = var.tag_contact_email
+    customer        = var.tag_customer
+    team            = var.tag_team
+    environment     = var.tag_environment
   }
   lifecycle_rule {
     id      = "airflow_access_logs"

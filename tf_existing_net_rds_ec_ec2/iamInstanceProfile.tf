@@ -23,10 +23,8 @@ EOF
 # IAM S3 Role Policy
 
 resource "aws_iam_role_policy" "airflow_s3" {
-  depends_on  = ["aws_iam_role.airflow_instance"]
-
   name = "${var.prefix}_s3"
-  role = "${aws_iam_role.airflow_instance.name}"
+  role = aws_iam_role.airflow_instance.name
 
   policy = <<EOF
 {
@@ -63,10 +61,8 @@ EOF
 # IAM Logs Role Policy
 
 resource "aws_iam_role_policy" "airflow_logs" {
-  depends_on  = ["aws_iam_role.airflow_instance"]
-
   name = "${var.prefix}_logs"
-  role = "${aws_iam_role.airflow_instance.name}"
+  role = aws_iam_role.airflow_instance.name
 
   policy = <<EOF
 {
@@ -92,10 +88,8 @@ EOF
 # IAM Secrets Manager Role Policy
 
 resource "aws_iam_role_policy" "airflow_secrets" {
-  depends_on  = ["aws_iam_role.airflow_instance"]
-
   name = "${var.prefix}_secrets"
-  role = "${aws_iam_role.airflow_instance.name}"
+  role = aws_iam_role.airflow_instance.name
 
   policy = <<EOF
 {
@@ -119,15 +113,13 @@ EOF
 # IAM Instance Profile
 
 resource "aws_iam_instance_profile" "airflow_s3_instance_profile" {
-  depends_on  = ["aws_iam_role.airflow_instance", "aws_iam_role_policy.airflow_s3", "aws_iam_role_policy.airflow_logs"]
-  
   name = "${var.prefix}_instance_profile"
-  role = "${aws_iam_role.airflow_instance.name}"
+  role = aws_iam_role.airflow_instance.name
 }
 
 # SSM Policy for cloudwatch logs
 
 resource "aws_iam_role_policy_attachment" "airflow_ssm_managed_policy_attachment" {
-  role = "${aws_iam_role.airflow_instance.name}"
+  role = aws_iam_role.airflow_instance.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM"
 }

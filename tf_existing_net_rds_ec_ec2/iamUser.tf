@@ -1,6 +1,6 @@
 resource "aws_iam_user_policy" "iam_user_policy" {
-  name = "${var.prefix}_airflow_circleci"
-  user = "${aws_iam_user.iam_user.name}"
+  name = "${var.prefix}_airflow_github"
+  user = aws_iam_user.iam_user.name
 
   policy = <<EOF
 {
@@ -36,9 +36,9 @@ EOF
 
 resource "aws_iam_user" "iam_user" {
     force_destroy = true
-    name = "srv_circleci_airflow_${var.prefix}"
+    name = "srv_github_airflow_${var.prefix}"
 }
 
 resource "aws_iam_access_key" "iam_access_key" {
-  user = "${aws_iam_user.iam_user.name}"
+  user = aws_iam_user.iam_user.name
 }
