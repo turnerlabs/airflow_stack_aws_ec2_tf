@@ -5,7 +5,12 @@ resource "aws_wafregional_ipset" "airflow_waf_ipset" {
 
   ip_set_descriptor {
     type  = "IPV4"
-    value = var.waf_ip
+    value = var.waf_ip1
+  }
+
+  ip_set_descriptor {
+    type  = "IPV4"
+    value = var.waf_ip2
   }
 }
 
@@ -32,6 +37,7 @@ resource "aws_wafregional_web_acl" "airflow_waf_web_acl" {
     }
     priority = 1
     rule_id = aws_wafregional_rule.airflow_waf_rule.id
+    type = "REGULAR"
   }
 }
 

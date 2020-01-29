@@ -188,8 +188,12 @@ variable "s3_airflow_access_log_bucket_name"  {
   description = "Airflow bucket for alb access logs"
 }
 
-variable "waf_ip"  {
-  description = "instance ingress ip to allow"
+variable "waf_ip1"  {
+  description = "WAF ip to allow"
+}
+
+variable "waf_ip2"  {
+  description = "WAF ip to allow"
 }
 
 variable "ingress_ips"  {
