@@ -1,7 +1,3 @@
-provider "random" {
-  version = "~> 2.1"
-}
-
 # Random password and Secrets Manager
 
 resource "random_string" "airflow_rds_password" {
@@ -15,6 +11,6 @@ resource "aws_secretsmanager_secret" "airflow_sm_secret" {
 }
 
 resource "aws_secretsmanager_secret_version" "airflow_sm_secret_version" {
-  secret_id     = "${aws_secretsmanager_secret.airflow_sm_secret.id}"
-  secret_string = "${random_string.airflow_rds_password.result}"
+  secret_id     = aws_secretsmanager_secret.airflow_sm_secret.id
+  secret_string = random_string.airflow_rds_password.result
 }

@@ -86,7 +86,7 @@ resource "aws_cloudwatch_metric_alarm" "airflow_worker_cw_add_alarm" {
   }
 
   alarm_description = "This metric monitors ec2 cpu utilization"
-  alarm_actions     = ["${aws_autoscaling_policy.airflow_worker_scale_up_policy.arn}"]
+  alarm_actions     = [aws_autoscaling_policy.airflow_worker_scale_up_policy.arn]
 }
 
 resource "aws_autoscaling_policy" "airflow_worker_scale_down_policy" {
@@ -112,5 +112,5 @@ resource "aws_cloudwatch_metric_alarm" "airflow_worker_cw_remove_alarm" {
   }
 
   alarm_description = "This metric monitors ec2 cpu utilization"
-  alarm_actions     = ["${aws_autoscaling_policy.airflow_worker_scale_down_policy.arn}"]
+  alarm_actions     = [aws_autoscaling_policy.airflow_worker_scale_down_policy.arn]
 }

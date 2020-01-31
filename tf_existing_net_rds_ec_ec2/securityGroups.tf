@@ -41,14 +41,14 @@ resource "aws_security_group" "airflow_instance" {
     from_port       = 8080
     to_port         = 8080
     protocol        = "tcp"
-    security_groups = ["${aws_security_group.airflow_lb.id}"]
+    security_groups = [aws_security_group.airflow_lb.id]
   }
 
   ingress {
     from_port       = 22
     to_port         = 22
     protocol        = "tcp"
-    security_groups = ["${aws_security_group.bastion_instance.id}"]
+    security_groups = [aws_security_group.bastion_instance.id]
   }
 
   egress {
@@ -78,7 +78,7 @@ resource "aws_security_group" "airflow_rds" {
     from_port       = 0
     to_port         = 0
     protocol        = "-1"
-    security_groups = ["${aws_security_group.airflow_instance.id}"]
+    security_groups = [aws_security_group.airflow_instance.id]
   }
 
   egress {
@@ -108,7 +108,7 @@ resource "aws_security_group" "airflow_ec" {
     from_port       = 0
     to_port         = 0
     protocol        = "-1"
-    security_groups = ["${aws_security_group.airflow_instance.id}"]
+    security_groups = [aws_security_group.airflow_instance.id]
   }
 
   egress {

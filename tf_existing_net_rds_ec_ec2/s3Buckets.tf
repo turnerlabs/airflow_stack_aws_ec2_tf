@@ -1,3 +1,31 @@
+# S3 Airflow Bucket
+resource "aws_s3_bucket" "s3_airflow_bucket" {
+  bucket        = "${var.prefix}-${var.s3_airflow_bucket_name}"
+  force_destroy = "true"
+  
+  versioning {
+    enabled = true
+  }
+
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        kms_master_key_id = aws_kms_key.airflow_s3_kms_key.arn
+        sse_algorithm     = "aws:kms"
+      }
+    }
+  }
+
+  tags = {
+    application     = var.tag_application
+    contact-email   = var.tag_contact_email
+    customer        = var.tag_customer
+    team            = var.tag_team
+    environment     = var.tag_environment
+  }
+}
+
+
 # S3 Airflow log Bucket
 resource "aws_s3_bucket" "s3_airflow_log_bucket" {
   bucket        = "${var.prefix}-${var.s3_airflow_log_bucket_name}"
@@ -22,37 +50,12 @@ resource "aws_s3_bucket" "s3_airflow_log_bucket" {
     }
   }
 
-  tags = {
-    application     = var.tag_application
-    contact-email   = var.tag_contact_email
-    customer        = var.tag_customer
-    team            = var.tag_team
-    environment     = var.tag_environment
-  }
-}
-
-# S3 Airflow Bucket
-resource "aws_s3_bucket" "s3_airflow_bucket" {
-  bucket        = "${var.prefix}-${var.s3_airflow_bucket_name}"
-  force_destroy = "true"
-  
-  lifecycle_rule {
-    id      = "airflow_server_log"
-    enabled = true
-    prefix  = "logs/"
-
-    transition {
-      days          = 30
-      storage_class = "STANDARD_IA"
-    }
-
-    transition {
-      days          = 60
-      storage_class = "GLACIER"
-    }
-
-    expiration {
-      days = 180
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        kms_master_key_id = aws_kms_key.airflow_s3_kms_key.arn
+        sse_algorithm     = "aws:kms"
+      }
     }
   }
 
@@ -69,13 +72,7 @@ resource "aws_s3_bucket" "s3_airflow_bucket" {
 resource "aws_s3_bucket" "s3_airflow_access_log_bucket" {
   bucket        = "${var.prefix}-${var.s3_airflow_access_log_bucket_name}"
   force_destroy = "true"
-  tags = {
-    application     = var.tag_application
-    contact-email   = var.tag_contact_email
-    customer        = var.tag_customer
-    team            = var.tag_team
-    environment     = var.tag_environment
-  }
+
   lifecycle_rule {
     id      = "airflow_access_logs"
     enabled = true
@@ -93,6 +90,23 @@ resource "aws_s3_bucket" "s3_airflow_access_log_bucket" {
     expiration {
       days = 365
     }
+  }
+
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        kms_master_key_id = aws_kms_key.airflow_s3_kms_key.arn
+        sse_algorithm     = "aws:kms"
+      }
+    }
+  }
+
+  tags = {
+    application     = var.tag_application
+    contact-email   = var.tag_contact_email
+    customer        = var.tag_customer
+    team            = var.tag_team
+    environment     = var.tag_environment
   }
 
 policy = <<EOF

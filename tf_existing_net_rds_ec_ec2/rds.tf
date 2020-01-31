@@ -32,10 +32,12 @@ resource "aws_db_instance" "airflow_rds" {
   publicly_accessible                   = false
   skip_final_snapshot                   = var.db_skip_final_snapshot
   storage_type                          = "gp2"
-  storage_encrypted                     = true
   username                              = var.db_master_username
   vpc_security_group_ids                = [aws_security_group.airflow_rds.id]
   ca_cert_identifier                    = "rds-ca-2019"
+  enabled_cloudwatch_logs_exports       = ["error", "general", "slowquery"]
+  storage_encrypted                     = true  
+  kms_key_id                            = aws_kms_key.airflow_rds_kms_key.arn
 
   tags = {
     Name            = "${var.prefix}-${var.db_identifier}"
