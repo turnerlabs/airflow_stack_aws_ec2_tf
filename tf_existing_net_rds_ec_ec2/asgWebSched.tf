@@ -18,7 +18,7 @@ resource "aws_launch_configuration" "lc_websched_airflow" {
 
 resource "aws_autoscaling_group" "asg_websched_airflow" {
   name                      = "${var.prefix}_asg_websched_airflow"
-  vpc_zone_identifier       = ["${var.private_subnet1_id}", "${var.private_subnet2_id}"]  
+  vpc_zone_identifier       = [var.private_subnet1_id, var.private_subnet2_id]  
   launch_configuration      = aws_launch_configuration.lc_websched_airflow.id
   max_size                  = "1"
   min_size                  = "1"

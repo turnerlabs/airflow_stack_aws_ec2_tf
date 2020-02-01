@@ -37,7 +37,7 @@ resource "aws_db_instance" "airflow_rds" {
   ca_cert_identifier                    = "rds-ca-2019"
   enabled_cloudwatch_logs_exports       = ["error", "general", "slowquery"]
   storage_encrypted                     = true  
-  kms_key_id                            = aws_kms_key.airflow_rds_kms_key.arn
+  # kms_key_id                            = aws_kms_key.airflow_rds_kms_key.arn
 
   tags = {
     Name            = "${var.prefix}-${var.db_identifier}"
