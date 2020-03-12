@@ -48,6 +48,7 @@ variable "availability_zone_2" {
   description = "az 2 of 2 azs"
   default     = "us-east-1d"
 }
+
 variable "airflow_bastion_ami" {
   description = "Airflow Bastion AMI created by packer"
 }
