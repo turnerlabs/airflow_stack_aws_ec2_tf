@@ -1,7 +1,7 @@
 resource "aws_cloudwatch_dashboard" "cw_dashboard_airflow" {
   dashboard_name = "airflow_prod"
 
-dashboard_body = <<EOF
+  dashboard_body = <<EOF
 {
   "widgets": [
     {

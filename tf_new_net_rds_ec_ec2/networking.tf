@@ -1,19 +1,19 @@
 # VPC 
 
 resource "aws_vpc" "airflow_vpc" {
-  cidr_block            = "172.16.0.0/16"
-  instance_tenancy      = "default"
-  enable_dns_support    = true
-  enable_dns_hostnames  = true
-  enable_classiclink    = false
+  cidr_block           = "172.16.0.0/16"
+  instance_tenancy     = "default"
+  enable_dns_support   = true
+  enable_dns_hostnames = true
+  enable_classiclink   = false
 
   tags = {
-    Name            = "${var.prefix}_vpc"
-    application     = var.tag_application
-    contact-email   = var.tag_contact_email
-    customer        = var.tag_customer
-    team            = var.tag_team
-    environment     = var.tag_environment
+    Name          = "${var.prefix}_vpc"
+    application   = var.tag_application
+    contact-email = var.tag_contact_email
+    customer      = var.tag_customer
+    team          = var.tag_team
+    environment   = var.tag_environment
   }
 }
 
@@ -27,12 +27,12 @@ resource "aws_subnet" "airflow_subnet_private_1c" {
   assign_ipv6_address_on_creation = false
 
   tags = {
-    Name            = "${var.prefix}_subnet_private_1c"
-    application     = var.tag_application
-    contact-email   = var.tag_contact_email
-    customer        = var.tag_customer
-    team            = var.tag_team
-    environment     = var.tag_environment
+    Name          = "${var.prefix}_subnet_private_1c"
+    application   = var.tag_application
+    contact-email = var.tag_contact_email
+    customer      = var.tag_customer
+    team          = var.tag_team
+    environment   = var.tag_environment
   }
 }
 
@@ -44,12 +44,12 @@ resource "aws_subnet" "airflow_subnet_private_1d" {
   assign_ipv6_address_on_creation = false
 
   tags = {
-    Name            = "${var.prefix}_subnet_private_1d"
-    application     = var.tag_application
-    contact-email   = var.tag_contact_email
-    customer        = var.tag_customer
-    team            = var.tag_team
-    environment     = var.tag_environment
+    Name          = "${var.prefix}_subnet_private_1d"
+    application   = var.tag_application
+    contact-email = var.tag_contact_email
+    customer      = var.tag_customer
+    team          = var.tag_team
+    environment   = var.tag_environment
   }
 }
 
@@ -62,13 +62,13 @@ resource "aws_subnet" "airflow_subnet_public_1c" {
   map_public_ip_on_launch         = true
   assign_ipv6_address_on_creation = false
 
-tags = {
-    Name            = "${var.prefix}_subnet_public_1c"
-    application     = var.tag_application
-    contact-email   = var.tag_contact_email
-    customer        = var.tag_customer
-    team            = var.tag_team
-    environment     = var.tag_environment
+  tags = {
+    Name          = "${var.prefix}_subnet_public_1c"
+    application   = var.tag_application
+    contact-email = var.tag_contact_email
+    customer      = var.tag_customer
+    team          = var.tag_team
+    environment   = var.tag_environment
   }
 }
 
@@ -80,34 +80,34 @@ resource "aws_subnet" "airflow_subnet_public_1d" {
   assign_ipv6_address_on_creation = false
 
   tags = {
-    Name            = "${var.prefix}_subnet_public_1d"
-    application     = var.tag_application
-    contact-email   = var.tag_contact_email
-    customer        = var.tag_customer
-    team            = var.tag_team
-    environment     = var.tag_environment
+    Name          = "${var.prefix}_subnet_public_1d"
+    application   = var.tag_application
+    contact-email = var.tag_contact_email
+    customer      = var.tag_customer
+    team          = var.tag_team
+    environment   = var.tag_environment
   }
 }
 
 # Internet Gateway
 
 resource "aws_internet_gateway" "airflow_igw" {
-  vpc_id      = aws_vpc.airflow_vpc.id
+  vpc_id = aws_vpc.airflow_vpc.id
 
   tags = {
-    Name            = "${var.prefix}_igw"
-    application     = var.tag_application
-    contact-email   = var.tag_contact_email
-    customer        = var.tag_customer
-    team            = var.tag_team
-    environment     = var.tag_environment
+    Name          = "${var.prefix}_igw"
+    application   = var.tag_application
+    contact-email = var.tag_contact_email
+    customer      = var.tag_customer
+    team          = var.tag_team
+    environment   = var.tag_environment
   }
 }
 
 # NAT Gateway
 
 resource "aws_eip" "airflow_nat_eip" {
-  vpc         = true
+  vpc = true
 }
 
 resource "aws_nat_gateway" "airflow_natgw" {
@@ -115,73 +115,73 @@ resource "aws_nat_gateway" "airflow_natgw" {
   subnet_id     = aws_subnet.airflow_subnet_public_1c.id
 
   tags = {
-      Name            = "${var.prefix}_natgw"
-    application     = var.tag_application
-    contact-email   = var.tag_contact_email
-    customer        = var.tag_customer
-    team            = var.tag_team
-    environment     = var.tag_environment
+    Name          = "${var.prefix}_natgw"
+    application   = var.tag_application
+    contact-email = var.tag_contact_email
+    customer      = var.tag_customer
+    team          = var.tag_team
+    environment   = var.tag_environment
   }
 }
 
 # Main Route Table
 
 resource "aws_route_table" "airflow_rt_main" {
-  vpc_id      = aws_vpc.airflow_vpc.id
+  vpc_id = aws_vpc.airflow_vpc.id
 
   tags = {
-    Name            = "${var.prefix}_rt_main"
-    application     = var.tag_application
-    contact-email   = var.tag_contact_email
-    customer        = var.tag_customer
-    team            = var.tag_team
-    environment     = var.tag_environment
+    Name          = "${var.prefix}_rt_main"
+    application   = var.tag_application
+    contact-email = var.tag_contact_email
+    customer      = var.tag_customer
+    team          = var.tag_team
+    environment   = var.tag_environment
   }
 }
 
 resource "aws_route_table_association" "aws_route_table_association_private_1c" {
-  subnet_id       = aws_subnet.airflow_subnet_private_1c.id
-  route_table_id  = aws_route_table.airflow_rt_main.id
+  subnet_id      = aws_subnet.airflow_subnet_private_1c.id
+  route_table_id = aws_route_table.airflow_rt_main.id
 }
 
 resource "aws_route_table_association" "aws_route_table_association_private_1d" {
-  subnet_id       = aws_subnet.airflow_subnet_private_1d.id
-  route_table_id  = aws_route_table.airflow_rt_main.id
+  subnet_id      = aws_subnet.airflow_subnet_private_1d.id
+  route_table_id = aws_route_table.airflow_rt_main.id
 }
 
-resource "aws_route" "route_ngw" { 
-  route_table_id          = aws_route_table.airflow_rt_main.id
-  destination_cidr_block  = "0.0.0.0/0"
-  nat_gateway_id          = aws_nat_gateway.airflow_natgw.id
+resource "aws_route" "route_ngw" {
+  route_table_id         = aws_route_table.airflow_rt_main.id
+  destination_cidr_block = "0.0.0.0/0"
+  nat_gateway_id         = aws_nat_gateway.airflow_natgw.id
 }
 
 # Custom Route Table
 
 resource "aws_route_table" "airflow_rt_custom" {
-  vpc_id      = aws_vpc.airflow_vpc.id
+  vpc_id = aws_vpc.airflow_vpc.id
 
   tags = {
-    Name            = "${var.prefix}_rt_custom"
-    application     = var.tag_application
-    contact-email   = var.tag_contact_email
-    customer        = var.tag_customer
-    team            = var.tag_team
-    environment     = var.tag_environment
+    Name          = "${var.prefix}_rt_custom"
+    application   = var.tag_application
+    contact-email = var.tag_contact_email
+    customer      = var.tag_customer
+    team          = var.tag_team
+    environment   = var.tag_environment
   }
 }
 
 resource "aws_route_table_association" "aws_route_table_association_public_1c" {
-  subnet_id       = aws_subnet.airflow_subnet_public_1c.id
-  route_table_id  = aws_route_table.airflow_rt_custom.id
+  subnet_id      = aws_subnet.airflow_subnet_public_1c.id
+  route_table_id = aws_route_table.airflow_rt_custom.id
 }
 
 resource "aws_route_table_association" "aws_route_table_association_public_1d" {
-  subnet_id       = aws_subnet.airflow_subnet_public_1d.id
-  route_table_id  = aws_route_table.airflow_rt_custom.id
+  subnet_id      = aws_subnet.airflow_subnet_public_1d.id
+  route_table_id = aws_route_table.airflow_rt_custom.id
 }
 
-resource "aws_route" "route_igw" { 
-  route_table_id          = aws_route_table.airflow_rt_custom.id
-  destination_cidr_block  = "0.0.0.0/0"
-  gateway_id              = aws_internet_gateway.airflow_igw.id
+resource "aws_route" "route_igw" {
+  route_table_id         = aws_route_table.airflow_rt_custom.id
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id             = aws_internet_gateway.airflow_igw.id
 }
