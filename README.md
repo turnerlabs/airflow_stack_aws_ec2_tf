@@ -2,7 +2,7 @@
 
 This is the terraform code to create the following airflow architecture.
 
-![AWS](images/airflow.jpg)
+![AWS](arch/airflow.jpg)
 
 **tf_s3_state** 
 
