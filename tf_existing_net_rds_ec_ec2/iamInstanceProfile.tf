@@ -123,3 +123,33 @@ resource "aws_iam_role_policy_attachment" "airflow_ssm_managed_policy_attachment
   role = aws_iam_role.airflow_instance.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM"
 }
+
+# IAM Bastion Role
+
+resource "aws_iam_role" "airflow_bastion" {
+
+  name = "${var.prefix}_bastion"
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "ec2.amazonaws.com"
+      },
+      "Effect": "Allow",
+      "Sid": ""
+    }
+  ]
+}
+EOF
+}
+
+
+# SSM Policy for cloudwatch logs
+
+resource "aws_iam_role_policy_attachment" "airflow_bastion_ssm_mgd_policy_attachment" {
+  role = aws_iam_role.airflow_bastion.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM"
+}
