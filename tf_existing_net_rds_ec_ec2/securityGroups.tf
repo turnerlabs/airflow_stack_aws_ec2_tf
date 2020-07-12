@@ -158,3 +158,33 @@ resource "aws_security_group" "bastion_instance" {
     environment     = var.tag_environment
   }
 }
+
+# EFS Security Group
+resource "aws_security_group" "airflow_efs" {
+  name        = "${var.prefix}_efs"
+  description = "Security group for access to efs mounts for airflow"
+  vpc_id      = var.vpc_id
+
+  ingress {
+    from_port       = 0
+    to_port         = 0
+    protocol        = "-1"
+    security_groups = ["${aws_security_group.airflow_instance.id}"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name          = "${var.prefix}_efs"
+    application   = "${var.tag_application}"
+    contact-email = "${var.tag_contact_email}"
+    customer      = "${var.tag_customer}"
+    team          = "${var.tag_team}"
+    environment   = "${var.tag_environment}"
+  }
+}
