@@ -230,3 +230,8 @@ variable "secret_recovery_window_in_days" {
 variable "notification_email" {
   description="This email will receive sns notification from any resources that alarm.  It is required"
 }
+
+variable "efs_mount_point" {
+  description = "Mount point for aiflow"
+  default     = "/mnt/airflowfiles"
+}
