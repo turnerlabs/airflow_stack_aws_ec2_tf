@@ -12,5 +12,5 @@ resource "aws_budgets_budget" "airflow_budget" {
 
   cost_types {
     use_amortized = true
-  }  
+  }
 }

@@ -1,18 +1,18 @@
 # Airflow Worker Instance Related Items
 
 resource "aws_launch_configuration" "lc_worker_airflow" {
-  name                        = "${var.prefix}_lc_worker_airflow"
-  image_id                    = var.airflow_worker_ami
-  instance_type               = var.airflow_worker_instance_class
-  key_name                    = var.airflow_keypair_name
-  security_groups             = [aws_security_group.airflow_instance.id]
-  iam_instance_profile        = aws_iam_instance_profile.airflow_s3_instance_profile.id
-  user_data_base64            = base64encode(templatefile("${path.cwd}/templates/worker-user-data.tpl", { s3_airflow_bucket_name = aws_s3_bucket.s3_airflow_bucket.id, role_name = aws_iam_role.airflow_instance.name, db_region = var.region, airflow_secret = aws_secretsmanager_secret.airflow_sm_secret.id, efs_mount_point = var.efs_mount_point, efs_dns_name = aws_efs_file_system.looker_clustered_efs.dns_name}))
+  name                 = "${var.prefix}_lc_worker_airflow"
+  image_id             = var.airflow_worker_ami
+  instance_type        = var.airflow_worker_instance_class
+  key_name             = var.airflow_keypair_name
+  security_groups      = [aws_security_group.airflow_instance.id]
+  iam_instance_profile = aws_iam_instance_profile.airflow_s3_instance_profile.id
+  user_data_base64     = base64encode(templatefile("${path.cwd}/templates/worker-user-data.tpl", { s3_airflow_bucket_name = aws_s3_bucket.s3_airflow_bucket.id, role_name = aws_iam_role.airflow_instance.name, db_region = var.region, airflow_secret = aws_secretsmanager_secret.airflow_sm_secret.id, efs_mount_point = var.efs_mount_point, efs_dns_name = aws_efs_file_system.airflow_clustered_efs.dns_name }))
 
   root_block_device {
-    volume_type                 = "gp2"
-    volume_size                 = 80
-    delete_on_termination       = true
+    volume_type           = "gp2"
+    volume_size           = 80
+    delete_on_termination = true
   }
 }
 
@@ -64,11 +64,11 @@ resource "aws_autoscaling_group" "asg_worker_airflow" {
 }
 
 resource "aws_autoscaling_policy" "airflow_worker_scale_up_policy" {
-  name                      = "${var.prefix}_airflow_worker_scale_up_policy"
-  scaling_adjustment        = 1
-  adjustment_type           = "ChangeInCapacity"
-  cooldown                  = 120
-  autoscaling_group_name    = aws_autoscaling_group.asg_worker_airflow.name
+  name                   = "${var.prefix}_airflow_worker_scale_up_policy"
+  scaling_adjustment     = 1
+  adjustment_type        = "ChangeInCapacity"
+  cooldown               = 120
+  autoscaling_group_name = aws_autoscaling_group.asg_worker_airflow.name
 }
 
 resource "aws_cloudwatch_metric_alarm" "airflow_worker_cw_add_alarm" {
@@ -90,11 +90,11 @@ resource "aws_cloudwatch_metric_alarm" "airflow_worker_cw_add_alarm" {
 }
 
 resource "aws_autoscaling_policy" "airflow_worker_scale_down_policy" {
-  name                      = "${var.prefix}_airflow_worker_scale_down_policy"
-  scaling_adjustment        = -1
-  adjustment_type           = "ChangeInCapacity"
-  cooldown                  = 240
-  autoscaling_group_name    = aws_autoscaling_group.asg_worker_airflow.name
+  name                   = "${var.prefix}_airflow_worker_scale_down_policy"
+  scaling_adjustment     = -1
+  adjustment_type        = "ChangeInCapacity"
+  cooldown               = 240
+  autoscaling_group_name = aws_autoscaling_group.asg_worker_airflow.name
 }
 
 resource "aws_cloudwatch_metric_alarm" "airflow_worker_cw_remove_alarm" {

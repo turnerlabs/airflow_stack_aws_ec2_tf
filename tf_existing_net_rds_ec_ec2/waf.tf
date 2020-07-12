@@ -26,7 +26,7 @@ resource "aws_wafregional_rule" "airflow_waf_rule" {
 }
 
 resource "aws_wafregional_web_acl" "airflow_waf_web_acl" {
-  name = "${var.prefix}_airflow_waf_web_acl"
+  name        = "${var.prefix}_airflow_waf_web_acl"
   metric_name = "${var.prefix}airflowwafwebacl"
   default_action {
     type = "BLOCK"
@@ -36,12 +36,12 @@ resource "aws_wafregional_web_acl" "airflow_waf_web_acl" {
       type = "ALLOW"
     }
     priority = 1
-    rule_id = aws_wafregional_rule.airflow_waf_rule.id
-    type = "REGULAR"
+    rule_id  = aws_wafregional_rule.airflow_waf_rule.id
+    type     = "REGULAR"
   }
 }
 
 resource "aws_wafregional_web_acl_association" "airflow_waf_web_acl_assoc" {
-  resource_arn  = aws_lb.airflow_lb.arn
-  web_acl_id    = aws_wafregional_web_acl.airflow_waf_web_acl.id
+  resource_arn = aws_lb.airflow_lb.arn
+  web_acl_id   = aws_wafregional_web_acl.airflow_waf_web_acl.id
 }

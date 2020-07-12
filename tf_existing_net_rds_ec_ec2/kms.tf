@@ -2,14 +2,14 @@ resource "aws_kms_key" "airflow_rds_kms_key" {
   description             = "Airflow RDS KMS Key"
   deletion_window_in_days = 7
   enable_key_rotation     = true
-  
+
   tags = {
-    Name            = "${var.prefix}-airflow-rds"
-    application     = var.tag_application
-    contact-email   = var.tag_contact_email
-    customer        = var.tag_customer
-    team            = var.tag_team
-    environment     = var.tag_environment
+    Name          = "${var.prefix}-airflow-rds"
+    application   = var.tag_application
+    contact-email = var.tag_contact_email
+    customer      = var.tag_customer
+    team          = var.tag_team
+    environment   = var.tag_environment
   }
 
   policy = <<EOF
@@ -74,14 +74,14 @@ resource "aws_kms_key" "airflow_s3_kms_key" {
   description             = "Airflow S3 KMS Key"
   deletion_window_in_days = 7
   enable_key_rotation     = true
-  
+
   tags = {
-    Name            = "${var.prefix}-airflow-s3"
-    application     = var.tag_application
-    contact-email   = var.tag_contact_email
-    customer        = var.tag_customer
-    team            = var.tag_team
-    environment     = var.tag_environment
+    Name          = "${var.prefix}-airflow-s3"
+    application   = var.tag_application
+    contact-email = var.tag_contact_email
+    customer      = var.tag_customer
+    team          = var.tag_team
+    environment   = var.tag_environment
   }
 
   policy = <<EOF
