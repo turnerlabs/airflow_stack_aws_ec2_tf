@@ -2,7 +2,7 @@
 
 resource "aws_iam_role" "airflow_instance" {
 
-  name = "${var.prefix}_instance"
+  name               = "${var.prefix}_instance"
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -120,7 +120,7 @@ resource "aws_iam_instance_profile" "airflow_s3_instance_profile" {
 # SSM Policy for cloudwatch logs
 
 resource "aws_iam_role_policy_attachment" "airflow_ssm_managed_policy_attachment" {
-  role = aws_iam_role.airflow_instance.name
+  role       = aws_iam_role.airflow_instance.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM"
 }
 
@@ -128,7 +128,7 @@ resource "aws_iam_role_policy_attachment" "airflow_ssm_managed_policy_attachment
 
 resource "aws_iam_role" "airflow_bastion" {
 
-  name = "${var.prefix}_bastion"
+  name               = "${var.prefix}_bastion"
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -150,6 +150,6 @@ EOF
 # SSM Policy for cloudwatch logs
 
 resource "aws_iam_role_policy_attachment" "airflow_bastion_ssm_mgd_policy_attachment" {
-  role = aws_iam_role.airflow_bastion.name
+  role       = aws_iam_role.airflow_bastion.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM"
 }

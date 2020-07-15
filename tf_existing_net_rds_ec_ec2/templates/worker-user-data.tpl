@@ -40,6 +40,14 @@ chmod 700 /home/ec2-user/airflow/sm_update.sh
 
 echo "############# Apply owndership and execution priviliges #############"
 
+mkdir -p ${efs_mount_point}
+echo "${efs_dns_name}:/ ${efs_mount_point} efs" | sudo tee -a /etc/fstab
+mount -a
+chown ec2-user:ec2-user ${efs_mount_point}
+cat /proc/mounts | grep airflow
+
+echo "############# Mount EFS #############"
+
 systemctl enable airflow-worker
 
 systemctl daemon-reload

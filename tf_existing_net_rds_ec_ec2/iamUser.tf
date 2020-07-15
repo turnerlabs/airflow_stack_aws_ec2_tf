@@ -35,8 +35,8 @@ EOF
 }
 
 resource "aws_iam_user" "iam_user" {
-    force_destroy = true
-    name = "srv_github_airflow_${var.prefix}"
+  force_destroy = true
+  name          = "srv_github_airflow_${var.prefix}"
 }
 
 resource "aws_iam_access_key" "iam_access_key" {
